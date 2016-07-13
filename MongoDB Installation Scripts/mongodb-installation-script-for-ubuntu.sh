@@ -32,6 +32,5 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl start mongodb
-sudo systemctl enable mongodb
 
 fi
