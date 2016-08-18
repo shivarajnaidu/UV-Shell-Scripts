@@ -9,12 +9,6 @@
 # **************************************************************************
 
 #to produce colored output in STDOUT
-# red=`tput setaf 1`
-# green=`tput setaf 2`
-# blue=`tput setaf 4`
-# reset=`tput sgr0`
-# bold=`tput bold`
-
 red="$(tput setaf 1)"
 green="$(tput setaf 2)"
 blue="$(tput setaf 4)"
