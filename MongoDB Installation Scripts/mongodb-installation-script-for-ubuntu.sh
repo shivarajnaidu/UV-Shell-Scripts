@@ -44,7 +44,7 @@ elif [ "$(lsb_release -sr)" = "16.04" ]; then
 
 	[Install]
 	WantedBy=multi-user.target
-	EOF
+EOF
 
 	[ "$?" = "0" ] && sudo systemctl start mongodb || echo "$red $bold It seems something went wrong.."
 fi
