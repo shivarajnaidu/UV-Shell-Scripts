@@ -7,6 +7,13 @@
 # This script will install MongoDB on Ubuntu 
 # **************************************************************************
 
+#to produce colored output in STDOUT
+red="$(tput setaf 1)"
+green="$(tput setaf 2)"
+blue="$(tput setaf 4)"
+reset="$(tput sgr0)"
+bold="$(tput bold)"
+
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 sudo echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 sudo apt-get update
@@ -37,6 +44,13 @@ elif [ "$(lsb_release -sr)" = "16.04" ]; then
 	WantedBy=multi-user.target
 	EOF
 
-	sudo systemctl start mongodb
+    [ "$?" = "0" ] && sudo systemctl start mongodb || echo "$red $bold It seems something went wrong.."
 
 fi
+
+echo ""
+echo "$red $bold If You Experience Any Problem While Installing MongoDB....
+Please Feel Free To File The Issue At $blue https://github.com/shivarajnaidu/UV-Shell-Scripts"
+echo "$reset"
+echo "$green $bold Follow Us at $blue fb.com/opensourceinside $reset"
+echo ""

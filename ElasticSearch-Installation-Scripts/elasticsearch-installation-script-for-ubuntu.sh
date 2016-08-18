@@ -112,5 +112,3 @@ Please Feel Free To File The Issue At $blue https://github.com/shivarajnaidu/UV-
 echo "$reset"
 echo "$green $bold Follow Us at $blue fb.com/opensourceinside $reset"
 echo ""
-
-

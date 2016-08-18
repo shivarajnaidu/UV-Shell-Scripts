@@ -39,5 +39,14 @@ fi
 [ "$?" = "0" ] && {
     echo ""
 	echo "Now You Can Start To Use ArangoDB"
-	echo "To Know More About Using ArangoDB"
+	echo "To Know More About Using ArangoDB look at"
+	echo "$blue $bold https://opensourceinside.blogspot.in/search/?q=ArangoDB+installation"
+	echo "https://opensourceinside.blogspot.in/2016/07/how-to-install-use-arangodb-3-on-ubuntu.html $reset"
 }
+
+echo ""
+echo "$red $bold If You Experience Any Problem While Installing ArangoDB....
+Please Feel Free To File The Issue At $blue https://github.com/shivarajnaidu/UV-Shell-Scripts"
+echo "$reset"
+echo "$green $bold Follow Us at $blue fb.com/opensourceinside $reset"
+echo ""
