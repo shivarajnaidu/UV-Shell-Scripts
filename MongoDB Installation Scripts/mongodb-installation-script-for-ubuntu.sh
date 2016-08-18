@@ -28,9 +28,11 @@ fi
 
 sudo apt-get install -y --allow-unauthenticated mongodb-org
 
-if [ "$(lsb_release -sr)" = "14.04" ]; then 
+if [ "$(lsb_release -sr)" = "14.04" ]; then
+	echo "$bold $green $(lsb_release -sd) $reset" 
 	sudo service mongod start
 elif [ "$(lsb_release -sr)" = "16.04" ]; then
+	echo "$bold $green $(lsb_release -sd) $reset" 
 	cat << EOF | sudo tee /etc/systemd/system/mongodb.service &> /dev/null
 	[Unit]
 	Description=High-performance, schema-free document-oriented database
@@ -44,8 +46,7 @@ elif [ "$(lsb_release -sr)" = "16.04" ]; then
 	WantedBy=multi-user.target
 	EOF
 
-    [ "$?" = "0" ] && sudo systemctl start mongodb || echo "$red $bold It seems something went wrong.."
-
+	[ "$?" = "0" ] && sudo systemctl start mongodb || echo "$red $bold It seems something went wrong.."
 fi
 
 echo ""

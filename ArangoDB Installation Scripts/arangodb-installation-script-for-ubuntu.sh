@@ -20,11 +20,13 @@ installed_os_version="$(lsb_release -sr)"
 echo "$installed_os_version"
 
 if [ "$installed_os_version" = "14.04" ]; then
+	echo "$bold $green $(lsb_release -sd) $reset"
 	cd
 	wget https://www.arangodb.com/repositories/arangodb3/xUbuntu_14.04/Release.key
 	sudo apt-key add - < Release.key
 	echo 'deb https://www.arangodb.com/repositories/arangodb3/xUbuntu_14.04/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 elif [ "$installed_os_version" = "16.04" ]; then
+	echo "$bold $green $(lsb_release -sd) $reset"
 	cd
 	wget https://www.arangodb.com/repositories/arangodb3/xUbuntu_16.04/Release.key
 	sudo apt-key add - < Release.key
@@ -32,12 +34,12 @@ elif [ "$installed_os_version" = "16.04" ]; then
 fi
 
 if [ "$?" = "0" ]; then
-sudo apt-get update
-sudo apt-get -y install arangodb3
+	sudo apt-get update
+	sudo apt-get -y install arangodb3
 fi
 
 [ "$?" = "0" ] && {
-    echo ""
+	echo ""
 	echo "Now You Can Start To Use ArangoDB"
 	echo "To Know More About Using ArangoDB look at"
 	echo "$blue $bold https://opensourceinside.blogspot.in/search/?q=ArangoDB+installation"
