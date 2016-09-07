@@ -40,7 +40,8 @@ fi
 
 [ "$?" = "0" ] && {
 	echo ""
-	echo "Now You Can Start To Use ArangoDB"
+	echo "$green $bold Now You Can Start To Use ArangoDB"
+    echo "$reset"
 	echo "To Know More About Using ArangoDB look at"
 	echo "$blue $bold https://opensourceinside.blogspot.in/search/?q=ArangoDB+installation"
 	echo "https://opensourceinside.blogspot.in/2016/07/how-to-install-use-arangodb-3-on-ubuntu.html $reset"
