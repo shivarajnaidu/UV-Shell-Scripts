@@ -23,26 +23,34 @@ cd
 #function which handles elasticsearch installation
 install_elasticsearch () {
 
-  elasticsearch_download_url="https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.3.5/elasticsearch-2.3.5.zip"
+# Check For User Passed An Argument To Install Version Of Eleastic search
+if [ "$1" = "5" ]; then
+elasticsearch_download_url="https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.1.1.zip"
+installation_dir_name="elasticsearch-5.1.1"
+else
+elasticsearch_download_url="https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/zip/elasticsearch/2.3.5/elasticsearch-2.3.5.zip"
+installation_dir_name="elasticsearch-2.3.5"
+fi
+
+zip_file="${installation_dir_name}.zip"
 
 #Decide whether to Download ElasticSearch archive or exist already..
-zip_file="elasticsearch-2.3.5.zip"
-
 if [ -e "$zip_file" ]; then
-  echo "$green $bold $zip_file File Exist $reset"
+  echo "$green $bold $zip_file File Exist, Skipping Download... $reset"
 else
   echo "$green $bold Downloading ElasticSearch $reset"
   wget "$elasticsearch_download_url"
 fi
+
 echo ""
 echo "$red $bold decompressing $zip_file $reset"
-unzip elasticsearch-2.3.5.zip
+unzip "$zip_file"
 
-if ls /opt/elasticsearch-2* &> /dev/null ; then
-  sudo rm -r /opt/elasticsearch-2*
-  sudo mv elasticsearch-2.3.5/ /opt/
+if ls /opt/elasticsearch-* &> /dev/null ; then
+  sudo rm -r /opt/elasticsearch-*
+  sudo mv "$installation_dir_name" /opt/
 else 
-  sudo mv elasticsearch-2.3.5/ /opt/
+  sudo mv "$installation_dir_name" /opt/
 fi
 
 [ "$?" = "0" ] && echo "$green $bold decompressing $zip_file completed $reset"
@@ -50,11 +58,11 @@ fi
 elasticsearch_bin_simu_link="/bin/elasticsearch"
 
 if [ -L "$elasticsearch_bin_simu_link" ]; then
-  	# echo "Link Already Exists"
-  	sudo rm "$elasticsearch_bin_simu_link"
-    sudo ln -s /opt/elasticsearch-2.3.5/bin/elasticsearch /bin/
+    # echo "Link Already Exists"
+    sudo rm "$elasticsearch_bin_simu_link"
+    sudo ln -s "/opt/$installation_dir_name/bin/elasticsearch" /bin/
   else
-    sudo ln -s /opt/elasticsearch-2.3.5/bin/elasticsearch /bin/
+    sudo ln -s "/opt/$installation_dir_name/bin/elasticsearch" /bin/
   fi
 
 
@@ -63,7 +71,7 @@ if [ -L "$elasticsearch_bin_simu_link" ]; then
     echo "$green $bold Symbolic Link created for elasticsearch $reset"
     echo ""
     echo "$green Now You Can Start ElasticSearch Just By Typing $bold 'elasticsearch' $reset $green in your 
-    or By $bold '/opt/elasticsearch-2.3.5/bin/elasticsearch'$reset $green  In Your command-line"
+    or By $bold '/opt/$installation_dir_name/bin/elasticsearch'$reset $green  In Your command-line"
   fi
 
 }
@@ -81,11 +89,11 @@ if [ "$installed_os_version" = "14.04" ]; then
  echo "$bold $green adding ppa $reset"
  sudo apt-get update
  echo "$bold $green installing openjdk-8-jdk in $(lsb_release -sd) $reset"
- sudo apt-get -y install openjdk-8-jdk openjdk-8-jre && install_elasticsearch
+ sudo apt-get -y install openjdk-8-jdk openjdk-8-jre && install_elasticsearch "$1"
 elif [ "$installed_os_version" = "16.04" ]; then
  # echo "Your System Is Ubuntu $installed_os_version"
  echo "$bold $green installing openjdk-8-jdk in $(lsb_release -sd) $reset"
- sudo apt-get -y install openjdk-8-jdk openjdk-8-jre && install_elasticsearch
+ sudo apt-get -y install openjdk-8-jdk openjdk-8-jre && install_elasticsearch "$1"
 fi
 
 [ "$?" = "0" ] && [ "$is_java_istalled" ] && {
