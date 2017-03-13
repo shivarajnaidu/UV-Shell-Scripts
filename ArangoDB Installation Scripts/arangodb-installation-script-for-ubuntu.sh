@@ -22,15 +22,15 @@ echo "$installed_os_version"
 if [ "$installed_os_version" = "14.04" ]; then
 	echo "$bold $green $(lsb_release -sd) $reset"
 	cd
-	wget https://www.arangodb.com/repositories/arangodb3/xUbuntu_14.04/Release.key
+	wget https://www.arangodb.com/repositories/arangodb31/xUbuntu_14.04/Release.key
 	sudo apt-key add - < Release.key
-	echo 'deb https://www.arangodb.com/repositories/arangodb3/xUbuntu_14.04/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
+	echo 'deb https://www.arangodb.com/repositories/arangodb31/xUbuntu_14.04/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 elif [ "$installed_os_version" = "16.04" ]; then
 	echo "$bold $green $(lsb_release -sd) $reset"
 	cd
-	wget https://www.arangodb.com/repositories/arangodb3/xUbuntu_16.04/Release.key
+	wget https://www.arangodb.com/repositories/arangodb31/xUbuntu_16.04/Release.key
 	sudo apt-key add - < Release.key
-	echo 'deb https://www.arangodb.com/repositories/arangodb3/xUbuntu_16.04/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
+	echo 'deb https://www.arangodb.com/repositories/arangodb31/xUbuntu_16.04/ /' | sudo tee /etc/apt/sources.list.d/arangodb.list
 fi
 
 if [ "$?" = "0" ]; then
