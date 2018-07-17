@@ -14,8 +14,8 @@ blue="$(tput setaf 4)"
 reset="$(tput sgr0)"
 bold="$(tput bold)"
 
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
-sudo echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
 sudo apt-get update
 
 if [ -d "/data/db/" ]; 
@@ -31,7 +31,7 @@ sudo apt-get install -y --allow-unauthenticated mongodb-org
 if [ "$(lsb_release -sr)" = "14.04" ]; then
 	echo "$bold $green $(lsb_release -sd) $reset" 
 	sudo service mongod start
-elif [ "$(lsb_release -sr)" = "16.04" ]; then
+else
 	echo "$bold $green $(lsb_release -sd) $reset" 
 	cat << EOF | sudo tee /etc/systemd/system/mongodb.service &> /dev/null
 	[Unit]
@@ -46,7 +46,9 @@ elif [ "$(lsb_release -sr)" = "16.04" ]; then
 	WantedBy=multi-user.target
 EOF
 
+	[ "$?" = "0" ] && sudo systemctl enable mongodb
 	[ "$?" = "0" ] && sudo systemctl start mongodb || echo "$red $bold It seems something went wrong.."
+
 fi
 
 echo ""
