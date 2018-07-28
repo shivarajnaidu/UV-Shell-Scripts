@@ -26,6 +26,7 @@ else
 	sudo chmod -R 777 /data/
 fi
 
+sudo apt-get install libcurl3
 sudo apt-get install -y --allow-unauthenticated mongodb-org
 
 if [ "$(lsb_release -sr)" = "14.04" ]; then
